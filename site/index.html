@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-NYh2bB+nz0DmkPfC98nnnZDlzs9Yg0xEWR3BlKdpY+w=' 'sha256-MB9Kh5CAXIChdKnbYvorZfVoPWF/9mx+P0In1mDRug8=' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-NYh2bB+nz0DmkPfC98nnnZDlzs9Yg0xEWR3BlKdpY+w=' 'sha256-UPqxI47NNuI30sYXaVWWQYzRClOOa88s0wZKeeilqu8=' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="AI-based autonomous fault detection and predictive health monitoring for CubeSats: trained on real ESA OPS-SAT telemetry, NASA battery aging data and tested across missions on ESA-ADB.">
 <meta property="og:type" content="website">
@@ -90,14 +90,27 @@ p { margin: 0; }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 750; font-stretch: 115%;
   color: var(--ink); text-decoration: none; white-space: nowrap; font-size: .98rem; }
 .brand svg { flex: none; }
-.nav-links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.nav-links { display: flex; gap: 2px; margin-left: auto; overflow: hidden; min-width: 0; flex: 0 1 auto; }
+.nav-more { position: relative; flex: none; }
+.more-btn { font: 500 .88rem var(--f-body); color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; white-space: nowrap; }
+.more-btn:hover, .more-btn[aria-expanded="true"] { color: var(--ink); background: var(--surface-2); }
+.more-menu { position: absolute; right: 0; top: calc(100% + 10px); min-width: 190px; display: grid; gap: 2px; padding: 6px; z-index: 40;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 32px rgba(0,0,0,.28); }
+.more-menu a { color: var(--ink); text-decoration: none; font-size: .9rem; padding: 8px 10px; border-radius: 6px; }
+.more-menu a:hover, .more-menu a.active { background: var(--accent-soft); color: var(--accent); }
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-links a { color: var(--muted); text-decoration: none; font-size: .88rem; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
 .nav-links a:hover { color: var(--ink); background: var(--surface-2); }
 .theme-btn { flex: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px;
   width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer; }
 .theme-btn:hover { border-color: var(--accent); }
-@media (max-width: 760px) { .nav-links { display: none; } .theme-btn { margin-left: auto; } }
+@media (max-width: 760px) {
+  .nav-links { display: none; } .nav-more { margin-left: auto; }
+  .nav .wrap { gap: 8px; }
+  .brand { min-width: 0; flex: 0 1 auto; overflow: hidden; font-size: .92rem; }
+  .brand-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .more-btn { padding: 6px 8px; }
+}
 
 /* ---------- hero ---------- */
 .hero { padding-block: 40px 28px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 28px 32px; align-items: center; }
@@ -558,7 +571,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   <div class="wrap">
     <a class="brand" href="#top">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M2 9.5h4M2 14.5h4M18 9.5h4M18 14.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></svg>
-      CubeSat Health Monitor
+      <span class="brand-txt">CubeSat Health Monitor</span>
     </a>
     <div class="nav-links">
       <a href="#monitor">Monitor</a>
@@ -571,6 +584,10 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
       <a href="#battery">Battery</a>
       <a href="#data">Data</a>
       <a href="#about">About</a>
+    </div>
+    <div class="nav-more" id="navMore" hidden>
+      <button class="more-btn" id="moreBtn" type="button" aria-expanded="false" aria-controls="moreMenu">More <span aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden></div>
     </div>
     <span class="api-pill" id="apiPill" title="Connection to the analysis server" role="status"><i></i><span id="apiPillTxt">Browser mode</span></span>
     <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
@@ -1172,7 +1189,6 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
           <div class="skill-groups">
             <div><b>AI &amp; data</b><span class="chips-static"><i>Machine learning</i><i>Agentic AI</i><i>Anomaly detection</i><i>scikit-learn</i><i>NumPy</i><i>pandas</i></span></div>
             <div><b>Languages</b><span class="chips-static"><i>Python</i><i>C</i><i>C++</i><i>JavaScript</i><i>HTML / CSS</i></span></div>
-            <div><b>Backend &amp; cloud</b><span class="chips-static"><i>FastAPI</i><i>REST APIs</i><i>Docker</i><i>Render</i><i>GitHub Actions</i><i>Web security</i></span></div>
             <div><b>Frontend &amp; tools</b><span class="chips-static"><i>Chart.js</i><i>three.js</i><i>Git &amp; GitHub</i><i>VS Code</i><i>WordPress</i></span></div>
           </div>
         </div>
@@ -3104,6 +3120,25 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- page polish: nav state, progress, counters ---------- */
   const navLinks = [...document.querySelectorAll(".nav-links a")];
+  // "More" menu: links that don't fit in the bar move into a dropdown (all of them on phones)
+  const navBox = $(".nav-links"), navMore = $("#navMore"), moreBtn = $("#moreBtn"), moreMenu = $("#moreMenu");
+  function fitNav() {
+    navLinks.forEach((a) => navBox.append(a));
+    const visible = getComputedStyle(navBox).display !== "none";
+    let k = navLinks.length;
+    if (!visible) k = 0;
+    else { navMore.hidden = false; while (k > 0 && navBox.scrollWidth > navBox.clientWidth + 1) { k--; moreMenu.prepend(navLinks[k]); } }
+    for (let i = k; i < navLinks.length; i++) if (navLinks[i].parentNode !== moreMenu) moreMenu.append(navLinks[i]);
+    navMore.hidden = k === navLinks.length;
+  }
+  const setMenu = (open) => { moreMenu.hidden = !open; moreBtn.setAttribute("aria-expanded", open); };
+  moreBtn.addEventListener("click", (e) => { e.stopPropagation(); setMenu(moreMenu.hidden); });
+  moreMenu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+  document.addEventListener("click", (e) => { if (!navMore.contains(e.target)) setMenu(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !moreMenu.hidden) { setMenu(false); moreBtn.focus(); } });
+  new ResizeObserver(() => fitNav()).observe($(".nav .wrap"));
+  fitNav();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNav);
   const secObs = new IntersectionObserver((es) => es.forEach((e) => {
     if (e.isIntersecting) navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
   }), { rootMargin: "-45% 0px -50% 0px" });
