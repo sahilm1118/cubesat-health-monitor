@@ -35,7 +35,8 @@ pipeline and the browser, CORS, validation, body limit, rate limit, security hea
    set API_BASE=https://cubesat-health-api.onrender.com
    python scripts/build_site.py
    ```
-4. **GitHub Pages.** Repository → Settings → Pages → Deploy from a branch → `main` / `/site`.
+4. **GitHub Pages.** Repository → Settings → Pages → Source: **GitHub Actions**. The workflow in
+   `.github/workflows/pages.yml` then publishes the `site/` folder on every push.
    The site appears at `https://YOUR-USERNAME.github.io/REPO/`.
 
 Render's free tier sleeps after inactivity, so the first request can take about a minute. The page shows
