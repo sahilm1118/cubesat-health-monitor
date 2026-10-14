@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-NYh2bB+nz0DmkPfC98nnnZDlzs9Yg0xEWR3BlKdpY+w=' 'sha256-VxITxg8E7wkSE+iG3AgJX42BI8ReMDFHSvLNNKRMa4I=' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-NYh2bB+nz0DmkPfC98nnnZDlzs9Yg0xEWR3BlKdpY+w=' 'sha256-0eSYoHi4+JlRU+jhwrP0eJ+o1+srlHZFjV/Hwh2Bxq4=' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="AI-based autonomous fault detection and predictive health monitoring for CubeSats: trained on real ESA OPS-SAT telemetry, NASA battery aging data and tested across missions on ESA-ADB.">
 <meta property="og:type" content="website">
@@ -690,7 +690,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
         <div class="dpanel" id="exCard"></div>
       </div>
       <div class="dpanel">
-        <div class="panel-head"><h3>What the AI flagged, by anomaly type</h3><span class="small">All windows with p ≥ 0.5</span></div>
+        <div class="panel-head"><h3>What the AI flagged, by anomaly type</h3><span class="small" id="typeNote">Every test window the AI flagged</span></div>
         <div class="chart-box"><canvas id="typeChart"></canvas></div>
       </div>
     </div>
@@ -2670,6 +2670,9 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     });
     if (focus) $("#tab-" + t).focus();
     if (!drawn[t]) { DRAW[t](); drawn[t] = true; }
+    // charts created while their panel was hidden or still laying out can stay at 0x0: resize once visible
+    const fitCharts = () => $("#dash-" + t).querySelectorAll("canvas").forEach((cv) => { const c = window.Chart && Chart.getChart(cv); if (c) c.resize(); });
+    requestAnimationFrame(fitCharts); setTimeout(fitCharts, 400);
   }
   tabBtns.forEach((b, i) => {
     b.addEventListener("click", () => showTab(TABS[i]));
@@ -2864,6 +2867,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   const thrGrid = Array.from({ length: 97 }, (_, i) => +(0.02 + i * 0.01).toFixed(2));
   const thrCurve = thrGrid.map(confusionAt);
   let thr = THR;
+  $("#thrVal").textContent = THR.toFixed(2); $("#typeNote").textContent = `Every test window with p ≥ ${THR.toFixed(2)} (the alarm threshold)`;
   $("#thr").value = THR; $("#thrPresets").querySelector('[data-t="0.5"]').dataset.t = String(THR);
   function updateThreshold() {
     const m = confusionAt(thr);

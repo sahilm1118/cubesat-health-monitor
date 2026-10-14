@@ -673,7 +673,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
         <div class="dpanel" id="exCard"></div>
       </div>
       <div class="dpanel">
-        <div class="panel-head"><h3>What the AI flagged, by anomaly type</h3><span class="small">All windows with p ≥ 0.5</span></div>
+        <div class="panel-head"><h3>What the AI flagged, by anomaly type</h3><span class="small" id="typeNote">Every test window the AI flagged</span></div>
         <div class="chart-box"><canvas id="typeChart"></canvas></div>
       </div>
     </div>
@@ -2484,6 +2484,9 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     });
     if (focus) $("#tab-" + t).focus();
     if (!drawn[t]) { DRAW[t](); drawn[t] = true; }
+    // charts created while their panel was hidden or still laying out can stay at 0x0: resize once visible
+    const fitCharts = () => $("#dash-" + t).querySelectorAll("canvas").forEach((cv) => { const c = window.Chart && Chart.getChart(cv); if (c) c.resize(); });
+    requestAnimationFrame(fitCharts); setTimeout(fitCharts, 400);
   }
   tabBtns.forEach((b, i) => {
     b.addEventListener("click", () => showTab(TABS[i]));
@@ -2678,6 +2681,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   const thrGrid = Array.from({ length: 97 }, (_, i) => +(0.02 + i * 0.01).toFixed(2));
   const thrCurve = thrGrid.map(confusionAt);
   let thr = THR;
+  $("#thrVal").textContent = THR.toFixed(2); $("#typeNote").textContent = `Every test window with p ≥ ${THR.toFixed(2)} (the alarm threshold)`;
   $("#thr").value = THR; $("#thrPresets").querySelector('[data-t="0.5"]').dataset.t = String(THR);
   function updateThreshold() {
     const m = confusionAt(thr);
