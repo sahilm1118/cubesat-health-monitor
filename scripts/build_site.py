@@ -31,6 +31,8 @@ for key, name in (("__FD__", "fault_detection"), ("__BH__", "battery_health"), (
     p = DATA / f"{name}.json"
     data = p.read_text(encoding="utf-8").replace("</", "<\\/") if p.exists() else "null"
     body = body.replace(key, data)
+photo = SITE / "img" / "sahil.jpg"
+body = body.replace("__PHOTO__", "data:image/jpeg;base64," + base64.b64encode(photo.read_bytes()).decode() if photo.exists() else "")
 body = body.replace("__FDCORE__", (SITE / "src" / "fdcore.js").read_text(encoding="utf-8").replace("</script", "<\\/script"))
 
 

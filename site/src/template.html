@@ -512,6 +512,8 @@ textarea { font: .8rem var(--f-mono); color: var(--ink); background: var(--surfa
 .about-mono { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-stretch: 120%;
   font-weight: 800; font-size: 2rem; color: var(--surface); background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--accent) 70%, #fff 30%), var(--accent));
   box-shadow: 0 0 0 6px var(--accent-soft); margin-bottom: 6px; }
+.about-photo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; display: block; margin-bottom: 6px;
+  box-shadow: 0 0 0 4px var(--surface), 0 0 0 7px var(--accent), 0 12px 30px rgba(0,0,0,.25); }
 .about-card h3 { font-size: 1.35rem; font-stretch: 108%; }
 .about-role { font-weight: 600; color: var(--accent); margin: 0; }
 .about-status { display: inline-flex; gap: 8px; align-items: center; font-size: .82rem; color: var(--ink); background: color-mix(in srgb, var(--ok) 12%, transparent);
@@ -1125,7 +1127,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     </div>
     <div class="about">
       <aside class="about-card">
-        <div class="about-mono" aria-hidden="true">SM</div>
+        <img class="about-photo" src="__PHOTO__" alt="Portrait of Sahil Mandal" width="160" height="160" decoding="async">
         <h3>Sahil Sanjay Mandal</h3>
         <p class="about-role">Creator of CubeSat Health Monitor</p>
         <p class="small">B.Tech Computer Science &amp; Engineering · AI &amp; Analytics<br>Third year · MIT ADT University, Pune · Batch of 2028</p>
