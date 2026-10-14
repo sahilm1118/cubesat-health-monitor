@@ -58,6 +58,8 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }   /* component display rules must never override the hidden attribute */
+img, canvas { max-width: 100%; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
@@ -425,11 +427,14 @@ input[type="range"] { flex: 1 1 220px; accent-color: var(--accent); min-width: 0
 @media (max-width: 640px) { .nn-box { height: 300px; } }
 
 /* playground */
-.play { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr) minmax(0, 300px); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.play { display: grid; grid-template-columns: minmax(0, 270px) minmax(0, 1fr) minmax(0, 300px); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 @media (max-width: 1080px) { .play { grid-template-columns: minmax(0, 1fr) minmax(0, 300px); } .play-ctl { grid-column: 1 / -1; border-right: 0 !important; border-bottom: 1px solid var(--line); } }
 @media (max-width: 720px) { .play { grid-template-columns: minmax(0, 1fr); } .play-main { border-right: 0 !important; border-bottom: 1px solid var(--line); } }
-.play-ctl { padding: 16px; display: grid; gap: 14px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
-.play-ctl .sel select { max-width: 100%; }
+.play-ctl { padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
+.play-ctl > * { min-width: 0; }
+.play-ctl .sel { display: grid; gap: 4px; }
+.play-ctl .sel select { width: 100%; max-width: 100%; text-overflow: ellipsis; }
+.play-main, .play-out { grid-template-columns: minmax(0, 1fr); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chipbtn { font: 500 .8rem var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
 .chipbtn:hover { border-color: var(--accent); color: var(--ink); }
