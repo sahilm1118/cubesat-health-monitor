@@ -1,0 +1,10 @@
+# large or downloadable inputs: rebuild with the scripts instead of committing them
+data/raw/
+data/esa_windows.pkl
+data/js_check.json
+site/artifact.html
+__pycache__/
+*.pyc
+.env
+.env.*
+.claude/

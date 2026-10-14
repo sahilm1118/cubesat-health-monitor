@@ -1,0 +1,24 @@
+# Render Blueprint: New -> Blueprint -> pick this repository. Builds backend/Dockerfile on Render's servers.
+services:
+  - type: web
+    name: cubesat-health-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # The ONLY website allowed to call the API (an origin has no path, so no repo name here).
+      - key: ALLOWED_ORIGINS
+        value: https://sahilm1118.github.io
+      - key: TRUST_PROXY
+        value: "1"
+      - key: FORCE_HSTS
+        value: "1"
+      - key: ENABLE_DOCS
+        value: "0"
+      - key: RATE_DEFAULT
+        value: "90"
+      - key: RATE_SIMULATE
+        value: "12"

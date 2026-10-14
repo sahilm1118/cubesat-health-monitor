@@ -1,0 +1,6 @@
+# Pinned runtime dependencies (the same versions the tests passed with)
+fastapi==0.143.0
+starlette==1.8.0
+pydantic==2.14.1
+uvicorn==0.54.0
+numpy==2.5.1
