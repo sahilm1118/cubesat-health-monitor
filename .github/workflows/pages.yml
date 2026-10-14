@@ -1,4 +1,4 @@
-# Publishes the site/ folder to GitHub Pages on every push that changes it.
+# Publishes the site/ folder to GitHub Pages on every push that changes it (or run it by hand from the Actions tab).
 name: Deploy website to GitHub Pages
 
 on:
