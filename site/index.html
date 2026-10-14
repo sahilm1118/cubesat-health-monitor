@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-NYh2bB+nz0DmkPfC98nnnZDlzs9Yg0xEWR3BlKdpY+w=' 'sha256-0eSYoHi4+JlRU+jhwrP0eJ+o1+srlHZFjV/Hwh2Bxq4=' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-NYh2bB+nz0DmkPfC98nnnZDlzs9Yg0xEWR3BlKdpY+w=' 'sha256-MB9Kh5CAXIChdKnbYvorZfVoPWF/9mx+P0In1mDRug8=' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="AI-based autonomous fault detection and predictive health monitoring for CubeSats: trained on real ESA OPS-SAT telemetry, NASA battery aging data and tested across missions on ESA-ADB.">
 <meta property="og:type" content="website">
@@ -520,6 +520,34 @@ textarea { font: .8rem var(--f-mono); color: var(--ink); background: var(--surfa
 .up-out .quiet { color: var(--muted); font-size: .9rem; }
 #upErr { color: var(--fault); min-height: 1em; }
 
+/* about the creator */
+.about { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 860px) { .about { grid-template-columns: minmax(0, 1fr); } }
+.about-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 10px; justify-items: start;
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 76px); }
+@media (max-width: 860px) { .about-card { position: static; } }
+.about-mono { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-stretch: 120%;
+  font-weight: 800; font-size: 2rem; color: var(--surface); background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--accent) 70%, #fff 30%), var(--accent));
+  box-shadow: 0 0 0 6px var(--accent-soft); margin-bottom: 6px; }
+.about-card h3 { font-size: 1.35rem; font-stretch: 108%; }
+.about-role { font-weight: 600; color: var(--accent); margin: 0; }
+.about-status { display: inline-flex; gap: 8px; align-items: center; font-size: .82rem; color: var(--ink); background: color-mix(in srgb, var(--ok) 12%, transparent);
+  border-radius: 8px; padding: 6px 10px; }
+.about-status i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.about-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.about-links a { text-decoration: none; }
+.about-mail { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .82rem; color: var(--muted); }
+.about-mail .mono { overflow-wrap: anywhere; user-select: all; }
+.about-body { display: grid; gap: 22px; min-width: 0; }
+.about-pub { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 18px; display: grid; gap: 6px; background: var(--surface); }
+.about-pub .pill { justify-self: start; margin: 0; }
+.skill-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; }
+@media (max-width: 640px) { .skill-groups { grid-template-columns: minmax(0, 1fr); } }
+.skill-groups b { display: block; font-size: .86rem; margin-bottom: 6px; }
+.chips-static { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips-static i { font-style: normal; font-size: .78rem; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); }
+.about-cols { gap: 24px; }
+
 footer { margin-top: 80px; border-top: 1px solid var(--line); padding-block: 28px 40px; }
 footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted); }
 </style>
@@ -540,6 +568,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
       <a href="#validation">Validation</a>
       <a href="#battery">Battery</a>
       <a href="#data">Data</a>
+      <a href="#about">About</a>
     </div>
     <span class="api-pill" id="apiPill" title="Connection to the analysis server" role="status"><i></i><span id="apiPillTxt">Browser mode</span></span>
     <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
@@ -1106,6 +1135,70 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     </div>
   </section>
 
+  <section class="block" id="about">
+    <div class="sec-head">
+      <p class="eyebrow">About the creator</p>
+      <h2>Hi, I'm Sahil</h2>
+    </div>
+    <div class="about">
+      <aside class="about-card">
+        <div class="about-mono" aria-hidden="true">SM</div>
+        <h3>Sahil Sanjay Mandal</h3>
+        <p class="about-role">Creator of CubeSat Health Monitor</p>
+        <p class="small">B.Tech Computer Science &amp; Engineering · AI &amp; Analytics<br>Third year · MIT ADT University, Pune · Batch of 2028</p>
+        <span class="about-status"><i></i>Open to summer internships in software engineering and AI</span>
+        <div class="about-links">
+          <a class="btn primary" href="https://www.linkedin.com/in/sahil-mandal711" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn" href="https://github.com/sahilm1118" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <div class="about-mail">
+          <span class="mono" id="aboutEmail">sahilmandal1102@gmail.com</span>
+          <button class="btn sm" type="button" id="copyEmail">Copy email</button>
+        </div>
+      </aside>
+      <div class="about-body">
+        <p class="lede">I'm an aspiring software engineer passionate about agentic AI and intelligent systems. I like taking an idea all the way from data to a working product. For this project I built the whole stack: the fault-detection and battery models, their validation, the autonomous fault-management simulator, the secured backend API, the cloud deployment and this website.</p>
+
+        <div class="about-pub">
+          <span class="pill">Research publication · Accepted</span>
+          <h3>Agentic AI Based Healthy Route Recommendation System</h3>
+          <p class="small">ICETSF 2026 · Springer · co-authored with Dr. Sachin Thanekar. A multi-agent AI pipeline that recommends the healthiest travel routes by combining real-time air quality, green cover, noise and terrain data. Published in my second year of undergraduate study.</p>
+        </div>
+
+        <div>
+          <div class="v-label">Skills</div>
+          <div class="skill-groups">
+            <div><b>AI &amp; data</b><span class="chips-static"><i>Machine learning</i><i>Agentic AI</i><i>Anomaly detection</i><i>scikit-learn</i><i>NumPy</i><i>pandas</i></span></div>
+            <div><b>Languages</b><span class="chips-static"><i>Python</i><i>C</i><i>C++</i><i>JavaScript</i><i>HTML / CSS</i></span></div>
+            <div><b>Backend &amp; cloud</b><span class="chips-static"><i>FastAPI</i><i>REST APIs</i><i>Docker</i><i>Render</i><i>GitHub Actions</i><i>Web security</i></span></div>
+            <div><b>Frontend &amp; tools</b><span class="chips-static"><i>Chart.js</i><i>three.js</i><i>Git &amp; GitHub</i><i>VS Code</i><i>WordPress</i></span></div>
+          </div>
+        </div>
+
+        <div class="grid-2 about-cols">
+          <div>
+            <div class="v-label">Projects</div>
+            <ul class="plain">
+              <li><b>CubeSat Health Monitor</b> (2026): this website, built end to end on real ESA and NASA data.</li>
+              <li><b>Agentic AI Healthy Route Recommender</b> (2025): team leader. Grade A with commendation, and the basis of the Springer paper.</li>
+              <li><b>Reusable AI Agent System</b> (2026): modular agents with tool use, memory and reflection.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="v-label">Certifications</div>
+            <ul class="plain">
+              <li>Architect Reusable AI Agent Systems, Coursera (2026)</li>
+              <li>Intro to Retrieval-Augmented Generation, Adobe (2025)</li>
+              <li>Ethical Considerations for Generative AI (2025)</li>
+              <li>C Programming Training, IIT Bombay (2024)</li>
+              <li>Build a Free Website with WordPress, Coursera (2024)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="team">
     <div class="sec-head">
       <p class="eyebrow">Team</p>
@@ -1338,6 +1431,14 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     repaint();
   });
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => repaint());
+
+  /* ---------------- about: copy email ---------------- */
+  $("#copyEmail").addEventListener("click", async (e) => {
+    const txt = $("#aboutEmail").textContent, b = e.currentTarget;
+    try { await navigator.clipboard.writeText(txt); b.textContent = "Copied"; }
+    catch (err) { const r = document.createRange(); r.selectNodeContents($("#aboutEmail")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected: press Ctrl+C"; }
+    setTimeout(() => { b.textContent = "Copy email"; }, 2000);
+  });
 
   /* ---------------- headline numbers ---------------- */
   const best = FD.results.find((r) => r.model === FD.best_model);
