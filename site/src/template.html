@@ -73,14 +73,17 @@ p { margin: 0; }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 750; font-stretch: 115%;
   color: var(--ink); text-decoration: none; white-space: nowrap; font-size: .98rem; }
 .brand svg { flex: none; }
-.nav-links { display: flex; gap: 2px; margin-left: auto; overflow: hidden; min-width: 0; flex: 0 1 auto; }
-.nav-more { position: relative; flex: none; }
-.more-btn { font: 500 .88rem var(--f-body); color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; white-space: nowrap; }
-.more-btn:hover, .more-btn[aria-expanded="true"] { color: var(--ink); background: var(--surface-2); }
-.more-menu { position: absolute; right: 0; top: calc(100% + 10px); min-width: 190px; display: grid; gap: 2px; padding: 6px; z-index: 40;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 32px rgba(0,0,0,.28); }
-.more-menu a { color: var(--ink); text-decoration: none; font-size: .9rem; padding: 8px 10px; border-radius: 6px; }
-.more-menu a:hover, .more-menu a.active { background: var(--accent-soft); color: var(--accent); }
+/* sliding section strip: wheel, drag, swipe or the arrow buttons */
+.nav-scroll { display: flex; align-items: center; gap: 4px; margin-left: auto; min-width: 0; flex: 0 1 auto; }
+.nav-links { display: flex; gap: 2px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; min-width: 0; cursor: grab; user-select: none;
+  --fl: 0px; --fr: 0px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fl), #000 calc(100% - var(--fr)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--fl), #000 calc(100% - var(--fr)), transparent 100%); }
+.nav-links.dragging { cursor: grabbing; }
+.nav-links.dragging a { pointer-events: none; }
+.nav-arrow { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font-size: 1.1rem; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0 0 2px; }
+.nav-arrow:hover { border-color: var(--accent); color: var(--accent); }
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-links a { color: var(--muted); text-decoration: none; font-size: .88rem; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
 .nav-links a:hover { color: var(--ink); background: var(--surface-2); }
@@ -88,11 +91,12 @@ p { margin: 0; }
   width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer; }
 .theme-btn:hover { border-color: var(--accent); }
 @media (max-width: 760px) {
-  .nav-links { display: none; } .nav-more { margin-left: auto; }
-  .nav .wrap { gap: 8px; }
-  .brand { min-width: 0; flex: 0 1 auto; overflow: hidden; font-size: .92rem; }
+  html { scroll-padding-top: 112px; }
+  .nav .wrap { flex-wrap: wrap; height: auto; padding-block: 8px 6px; gap: 6px 8px; }
+  .brand { min-width: 0; flex: 1 1 auto; overflow: hidden; font-size: .92rem; }
   .brand-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .more-btn { padding: 6px 8px; }
+  .nav-scroll { order: 10; flex: 1 1 100%; margin-left: 0; }
+  .nav-arrow { display: none; }
 }
 
 /* ---------- hero ---------- */
@@ -556,21 +560,21 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M2 9.5h4M2 14.5h4M18 9.5h4M18 14.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></svg>
       <span class="brand-txt">CubeSat Health Monitor</span>
     </a>
-    <div class="nav-links">
-      <a href="#monitor">Monitor</a>
-      <a href="#dashboards">Dashboards</a>
-      <a href="#playground">Try the AI</a>
-      <a href="#autonomy">Autonomy</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#detection">Detection</a>
-      <a href="#validation">Validation</a>
-      <a href="#battery">Battery</a>
-      <a href="#data">Data</a>
-      <a href="#about">About</a>
-    </div>
-    <div class="nav-more" id="navMore" hidden>
-      <button class="more-btn" id="moreBtn" type="button" aria-expanded="false" aria-controls="moreMenu">More <span aria-hidden="true">▾</span></button>
-      <div class="more-menu" id="moreMenu" hidden></div>
+    <div class="nav-scroll">
+      <button class="nav-arrow" id="navLeft" type="button" aria-label="Show earlier sections" hidden>‹</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#monitor">Monitor</a>
+        <a href="#dashboards">Dashboards</a>
+        <a href="#playground">Try the AI</a>
+        <a href="#autonomy">Autonomy</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#detection">Detection</a>
+        <a href="#validation">Validation</a>
+        <a href="#battery">Battery</a>
+        <a href="#data">Data</a>
+        <a href="#about">About</a>
+      </div>
+      <button class="nav-arrow" id="navRight" type="button" aria-label="Show more sections" hidden>›</button>
     </div>
     <span class="api-pill" id="apiPill" title="Connection to the analysis server" role="status"><i></i><span id="apiPillTxt">Browser mode</span></span>
     <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
@@ -2934,27 +2938,43 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- page polish: nav state, progress, counters ---------- */
   const navLinks = [...document.querySelectorAll(".nav-links a")];
-  // "More" menu: links that don't fit in the bar move into a dropdown (all of them on phones)
-  const navBox = $(".nav-links"), navMore = $("#navMore"), moreBtn = $("#moreBtn"), moreMenu = $("#moreMenu");
-  function fitNav() {
-    navLinks.forEach((a) => navBox.append(a));
-    const visible = getComputedStyle(navBox).display !== "none";
-    let k = navLinks.length;
-    if (!visible) k = 0;
-    else { navMore.hidden = false; while (k > 0 && navBox.scrollWidth > navBox.clientWidth + 1) { k--; moreMenu.prepend(navLinks[k]); } }
-    for (let i = k; i < navLinks.length; i++) if (navLinks[i].parentNode !== moreMenu) moreMenu.append(navLinks[i]);
-    navMore.hidden = k === navLinks.length;
+  // sliding section strip: mouse wheel, click-drag, touch swipe, or the ‹ › buttons
+  const strip = $("#navLinks"), navL = $("#navLeft"), navR = $("#navRight");
+  function updStrip() {
+    const max = strip.scrollWidth - strip.clientWidth;
+    const atStart = strip.scrollLeft <= 2, atEnd = strip.scrollLeft >= max - 2;
+    navL.hidden = max <= 2 || atStart; navR.hidden = max <= 2 || atEnd;
+    strip.style.setProperty("--fl", atStart ? "0px" : "28px");
+    strip.style.setProperty("--fr", atEnd ? "0px" : "28px");
   }
-  const setMenu = (open) => { moreMenu.hidden = !open; moreBtn.setAttribute("aria-expanded", open); };
-  moreBtn.addEventListener("click", (e) => { e.stopPropagation(); setMenu(moreMenu.hidden); });
-  moreMenu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
-  document.addEventListener("click", (e) => { if (!navMore.contains(e.target)) setMenu(false); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !moreMenu.hidden) { setMenu(false); moreBtn.focus(); } });
-  new ResizeObserver(() => fitNav()).observe($(".nav .wrap"));
-  fitNav();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNav);
+  const slide = (dir) => strip.scrollBy({ left: dir * Math.max(160, strip.clientWidth * 0.6), behavior: reduceMotion ? "auto" : "smooth" });
+  navL.addEventListener("click", () => slide(-1));
+  navR.addEventListener("click", () => slide(1));
+  strip.addEventListener("scroll", updStrip, { passive: true });
+  strip.addEventListener("wheel", (e) => {
+    if (strip.scrollWidth <= strip.clientWidth || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    strip.scrollLeft += e.deltaY; e.preventDefault();
+  }, { passive: false });
+  let drag = null;
+  strip.addEventListener("pointerdown", (e) => { if (e.pointerType === "mouse" && e.button === 0) drag = { x: e.clientX, left: strip.scrollLeft, moved: false }; });
+  addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 5) { drag.moved = true; strip.classList.add("dragging"); }
+    if (drag.moved) strip.scrollLeft = drag.left - dx;
+  });
+  addEventListener("pointerup", () => { if (drag && drag.moved) setTimeout(() => strip.classList.remove("dragging"), 0); drag = null; });
+  strip.addEventListener("click", (e) => { if (strip.classList.contains("dragging")) e.preventDefault(); }, true);
+  new ResizeObserver(updStrip).observe(strip);
+  updStrip();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(updStrip);
+  // keep the current section's link in view
+  const revealLink = (a) => {
+    const target = a.offsetLeft - (strip.clientWidth - a.offsetWidth) / 2;
+    if (a.offsetLeft < strip.scrollLeft || a.offsetLeft + a.offsetWidth > strip.scrollLeft + strip.clientWidth) strip.scrollTo({ left: target, behavior: reduceMotion ? "auto" : "smooth" });
+  };
   const secObs = new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    if (e.isIntersecting) navLinks.forEach((a) => { const on = a.getAttribute("href") === "#" + e.target.id; a.classList.toggle("active", on); if (on) revealLink(a); });
   }), { rootMargin: "-45% 0px -50% 0px" });
   navLinks.forEach((a) => { const s = document.querySelector(a.getAttribute("href")); if (s) secObs.observe(s); });
   const bar = $("#progressBar");
