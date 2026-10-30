@@ -398,7 +398,7 @@ input[type="range"] { flex: 1 1 220px; accent-color: var(--accent); min-width: 0
   background: radial-gradient(ellipse at 50% 40%, var(--accent-soft), transparent 65%), var(--surface); }
 @media (max-width: 900px) { .explode-fig { height: 440px; } }
 .explode-labels { position: absolute; inset: 0; pointer-events: none; }
-.xl { position: absolute; display: flex; align-items: center; gap: 6px; transform: translateY(-50%); transition: opacity .3s;
+.xl { opacity: 0; position: absolute; display: flex; align-items: center; gap: 6px; transform: translateY(-50%); transition: opacity .3s;
   font-family: var(--f-mono); font-size: .7rem; color: var(--ink); white-space: nowrap; }
 .xl::before { content: ""; width: 26px; height: 1px; background: var(--muted); }
 .xl b { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line); font-weight: 500; font-size: .66rem; }
@@ -2307,10 +2307,10 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     list.addEventListener("mouseleave", () => setHot(null));
     list.addEventListener("click", (e) => { const b = e.target.closest(".module"); if (b) { target = 1; setHot(b.dataset.key); btn.textContent = "Assemble"; } });
 
-    let ex = reduceMotion ? 1 : 0, target = 1, armed = false;
+    let ex = reduceMotion ? 1 : 0, target = reduceMotion ? 1 : 0, armed = false;   // explodes once, when first seen
     const btn = $("#explodeBtn");
     btn.addEventListener("click", () => { target = target ? 0 : 1; btn.textContent = target ? "Assemble" : "Explode"; });
-    new IntersectionObserver((es) => { if (es[0].isIntersecting && !armed) { armed = true; ex = 0; target = 1; } }, { threshold: 0.35 }).observe(canvas);
+    new IntersectionObserver((es) => { if (es[0].isIntersecting && !armed) { armed = true; target = 1; } }, { threshold: 0.35 }).observe(canvas);
 
     const v = new T.Vector3();
     function frame(dt, now) {

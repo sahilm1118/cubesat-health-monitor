@@ -995,10 +995,10 @@
     list.addEventListener("mouseleave", () => setHot(null));
     list.addEventListener("click", (e) => { const b = e.target.closest(".module"); if (b) { target = 1; setHot(b.dataset.key); btn.textContent = "Assemble"; } });
 
-    let ex = reduceMotion ? 1 : 0, target = 1, armed = false;
+    let ex = reduceMotion ? 1 : 0, target = reduceMotion ? 1 : 0, armed = false;   // explodes once, when first seen
     const btn = $("#explodeBtn");
     btn.addEventListener("click", () => { target = target ? 0 : 1; btn.textContent = target ? "Assemble" : "Explode"; });
-    new IntersectionObserver((es) => { if (es[0].isIntersecting && !armed) { armed = true; ex = 0; target = 1; } }, { threshold: 0.35 }).observe(canvas);
+    new IntersectionObserver((es) => { if (es[0].isIntersecting && !armed) { armed = true; target = 1; } }, { threshold: 0.35 }).observe(canvas);
 
     const v = new T.Vector3();
     function frame(dt, now) {
