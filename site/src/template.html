@@ -1138,8 +1138,8 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   <section class="block" id="about">
     <div class="sec-head">
-      <p class="eyebrow">About the team leader</p>
-      <h2>Hi, I'm Sahil</h2>
+      <p class="eyebrow">About the team</p>
+      <h2>Meet the team</h2>
     </div>
     <div class="about">
       <aside class="about-card">
@@ -1153,8 +1153,8 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
           <a class="btn" href="https://github.com/sahilm1118" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
         <div class="about-mail">
-          <span class="mono" id="aboutEmail">sahilmandal1102@gmail.com</span>
-          <button class="btn sm" type="button" id="copyEmail">Copy email</button>
+          <span class="mono">sahilmandal1102@gmail.com</span>
+          <button class="btn sm" type="button" data-copy="sahilmandal1102@gmail.com">Copy email</button>
         </div>
       </aside>
       <div class="about-body">
@@ -1193,6 +1193,32 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
               <li>C Programming Training, IIT Bombay (2024)</li>
               <li>Build a Free Website with WordPress, Coursera (2024)</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about">
+      <aside class="about-card">
+        <img class="about-photo" src="__PHOTO_KAUSTUBH__" alt="Portrait of Kaustubh Patil" width="160" height="160" decoding="async">
+        <h3>Kaustubh Patil</h3>
+        <p class="about-role">Team Member, CubeSat Health Monitor</p>
+        <p class="small">B.Tech Computer Science &amp; Engineering · AI &amp; Analytics<br>Third year · MIT ADT University, Pune · Batch of 2028</p>
+        <div class="about-links">
+          <a class="btn primary" href="https://www.linkedin.com/in/kaustubhpatil2005" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn" href="https://github.com/patilkaustubh9a25-bit" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <div class="about-mail">
+          <span class="mono">patilkaustubh9a25@gmail.com</span>
+          <button class="btn sm" type="button" data-copy="patilkaustubh9a25@gmail.com">Copy email</button>
+        </div>
+      </aside>
+      <div class="about-body">
+        <p class="lede">Kaustubh works on the data and battery-health side of the project. He prepared and cleaned the datasets, worked on battery health and remaining-life forecasting, and tested and validated the results.</p>
+        <div>
+          <div class="v-label">Skills</div>
+          <div class="skill-groups">
+            <div><b>AI &amp; data</b><span class="chips-static"><i>Data cleaning</i><i>Machine learning</i><i>Battery health forecasting</i><i>Model validation</i></span></div>
+            <div><b>Languages &amp; tools</b><span class="chips-static"><i>Python</i><i>pandas</i><i>NumPy</i><i>scikit-learn</i><i>Git &amp; GitHub</i></span></div>
           </div>
         </div>
       </div>
@@ -1279,12 +1305,12 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => repaint());
 
   /* ---------------- about: copy email ---------------- */
-  $("#copyEmail").addEventListener("click", async (e) => {
-    const txt = $("#aboutEmail").textContent, b = e.currentTarget;
+  document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    const txt = b.dataset.copy, label = b.previousElementSibling;
     try { await navigator.clipboard.writeText(txt); b.textContent = "Copied"; }
-    catch (err) { const r = document.createRange(); r.selectNodeContents($("#aboutEmail")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected: press Ctrl+C"; }
+    catch (err) { const r = document.createRange(); r.selectNodeContents(label); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected: press Ctrl+C"; }
     setTimeout(() => { b.textContent = "Copy email"; }, 2000);
-  });
+  }));
 
   /* ---------------- headline numbers ---------------- */
   const best = FD.results.find((r) => r.model === FD.best_model);
