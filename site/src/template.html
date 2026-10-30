@@ -311,13 +311,8 @@ tr.ref td { color: var(--muted); }
 .person .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; font-family: var(--f-display); font-weight: 700; color: var(--muted); margin-bottom: 6px; }
 .person b { font-weight: 600; }
 .person span { font-size: .86rem; color: var(--muted); }
-.team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.person.lead { grid-row: span 3; border-style: solid; border-color: var(--accent); background: var(--accent-soft); }
-.person.lead .avatar { background: var(--accent); color: var(--surface); }
-.person.guide { border-style: solid; }
+.team .person { align-content: start; }
 .duties { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: .86rem; color: var(--ink); }
-@media (max-width: 860px) { .team { grid-template-columns: repeat(2, minmax(0, 1fr)); } .person.lead { grid-row: auto; grid-column: 1 / -1; } }
-@media (max-width: 460px) { .team { grid-template-columns: minmax(0, 1fr); } }
 
 /* nav polish */
 .nav .wrap { position: relative; }
@@ -1143,14 +1138,14 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   <section class="block" id="about">
     <div class="sec-head">
-      <p class="eyebrow">About the creator</p>
+      <p class="eyebrow">About the team leader</p>
       <h2>Hi, I'm Sahil</h2>
     </div>
     <div class="about">
       <aside class="about-card">
         <img class="about-photo" src="__PHOTO__" alt="Portrait of Sahil Mandal" width="160" height="160" decoding="async">
         <h3>Sahil Sanjay Mandal</h3>
-        <p class="about-role">Creator of CubeSat Health Monitor</p>
+        <p class="about-role">Team Leader, CubeSat Health Monitor</p>
         <p class="small">B.Tech Computer Science &amp; Engineering · AI &amp; Analytics<br>Third year · MIT ADT University, Pune · Batch of 2028</p>
         <span class="about-status"><i></i>Open to summer internships in software engineering and AI</span>
         <div class="about-links">
@@ -1163,7 +1158,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
         </div>
       </aside>
       <div class="about-body">
-        <p class="lede">I'm an aspiring software engineer passionate about agentic AI and intelligent systems. I like taking an idea all the way from data to a working product. For this project I built the whole stack: the fault-detection and battery models, their validation, the autonomous fault-management simulator, the secured backend API, the cloud deployment and this website.</p>
+        <p class="lede">I'm an aspiring software engineer passionate about agentic AI and intelligent systems. I like taking an idea all the way from data to a working product. On this project I led our team of three, working on the system architecture, the fault-detection model and the backend, alongside Kaustubh Patil and Rohin Rana.</p>
 
         <div class="about-pub">
           <span class="pill">Research publication · Accepted</span>
@@ -1184,7 +1179,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
           <div>
             <div class="v-label">Projects</div>
             <ul class="plain">
-              <li><b>CubeSat Health Monitor</b> (2026): this website, built end to end on real ESA and NASA data.</li>
+              <li><b>CubeSat Health Monitor</b> (2026): team leader. Built as a team of three on real ESA and NASA data.</li>
               <li><b>Agentic AI Healthy Route Recommender</b> (2025): team leader. Grade A with commendation, and the basis of the Springer paper.</li>
               <li><b>Reusable AI Agent System</b> (2026): modular agents with tool use, memory and reflection.</li>
             </ul>
@@ -1211,19 +1206,34 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
       <p class="lede">MIT ADT University, Pune</p>
     </div>
     <div class="team">
-      <div class="person lead">
-        <div class="avatar">SM</div><b>Sahil Mandal</b><span>Team Leader · System architecture &amp; AI lead</span>
+      <div class="person">
+        <div class="avatar">SM</div><b>Sahil Mandal</b><span>Team Leader · Architecture, AI &amp; backend</span>
         <ul class="duties">
-          <li>Fault-detection model, calibration and validation</li>
-          <li>Battery health and remaining-life forecasting</li>
-          <li>Autonomous fault-management (FDIR) design and simulation</li>
+          <li>Team coordination and system architecture</li>
+          <li>Fault-detection model and calibration</li>
           <li>Backend API, security and cloud deployment</li>
-          <li>Website, mission dashboards and 3D visualisation</li>
         </ul>
       </div>
-      <div class="person"><div class="avatar">KP</div><b>Kaustubh Patil</b><span>Team Member · Data preparation &amp; testing</span></div>
-      <div class="person"><div class="avatar">RR</div><b>Rohin Rana</b><span>Team Member · Research &amp; documentation</span></div>
-      <div class="person guide"><div class="avatar">SC</div><b>Prof. Sonal Chanderi</b><span>Project Guide · MIT ADT University, Pune</span></div>
+      <div class="person"><div class="avatar">KP</div><b>Kaustubh Patil</b><span>Team Member · Data &amp; battery health</span>
+        <ul class="duties">
+          <li>Dataset preparation and cleaning</li>
+          <li>Battery health and remaining-life forecasting</li>
+          <li>Testing and validation of results</li>
+        </ul>
+      </div>
+      <div class="person"><div class="avatar">RR</div><b>Rohin Rana</b><span>Team Member · Autonomy, website &amp; research</span>
+        <ul class="duties">
+          <li>Fault-management (FDIR) design and simulation</li>
+          <li>Website, dashboards and 3D visualisation</li>
+          <li>Research and documentation</li>
+        </ul>
+      </div>
+      <div class="person guide"><div class="avatar">SC</div><b>Prof. Sonal Chanderi</b><span>Project Guide · MIT ADT University, Pune</span>
+        <ul class="duties">
+          <li>Guided the project's direction and scope</li>
+          <li>Reviewed the methodology and results</li>
+        </ul>
+      </div>
     </div>
   </section>
 </main>
