@@ -3,7 +3,7 @@
 ## Architecture
 
 ```
-GitHub Pages (static site/index.html)  ──HTTPS + CORS──▶  Render (FastAPI in Docker, backend/)
+GitHub Pages (static site/ folder)     ──HTTPS + CORS──▶  Render (FastAPI in Docker, backend/)
    in-browser model as fallback                              same model, pure NumPy, no training data
 ```
 
@@ -30,7 +30,7 @@ pipeline and the browser, CORS, validation, body limit, rate limit, security hea
 2. **Render (API).** Sign in at render.com → **New → Blueprint** → pick the repository. Render reads
    `render.yaml` and builds `backend/Dockerfile`. Before deploying, set **ALLOWED_ORIGINS** to
    `https://YOUR-USERNAME.github.io`. When it's live, copy the URL (for example `https://cubesat-health-api.onrender.com`).
-3. **Point the site at the API.** Rebuild with that URL, then upload the new `site/index.html`:
+3. **Point the site at the API.** Rebuild with that URL, then upload the updated `site/` folder:
    ```
    set API_BASE=https://cubesat-health-api.onrender.com
    python scripts/build_site.py

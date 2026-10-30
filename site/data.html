@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cubesat-health-api.onrender.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Data · CubeSat Health Monitor</title>
+<meta name="description" content="AI-based autonomous fault detection and predictive health monitoring for CubeSats: trained on real ESA OPS-SAT telemetry, NASA battery aging data and tested across missions on ESA-ADB.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Data · CubeSat Health Monitor">
+<meta property="og:description" content="AI-based autonomous fault detection and predictive health monitoring for CubeSats: trained on real ESA OPS-SAT telemetry, NASA battery aging data and tested across missions on ESA-ADB.">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0f1d">
+<meta name="chm-api" content="https://cubesat-health-api.onrender.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=9d869fd6">
+</head>
+<body data-file="data.html">
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M2 9.5h4M2 14.5h4M18 9.5h4M18 14.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></svg>
+      <span class="brand-txt">CubeSat Health Monitor</span>
+    </a>
+    <div class="nav-scroll">
+      <button class="nav-arrow" id="navLeft" type="button" aria-label="Show earlier sections" hidden>‹</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="monitor.html">Monitor</a>
+        <a href="dashboards.html">Dashboards</a>
+        <a href="playground.html">Try the AI</a>
+        <a href="autonomy.html">Autonomy</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="detection.html">Detection</a>
+        <a href="validation.html">Validation</a>
+        <a href="battery.html">Battery</a>
+        <a href="data.html">Data</a>
+        <a href="about.html">About</a>
+      </div>
+      <button class="nav-arrow" id="navRight" type="button" aria-label="Show more sections" hidden>›</button>
+    </div>
+    <span class="api-pill" id="apiPill" title="Connection to the analysis server" role="status"><i></i><span id="apiPillTxt">Browser mode</span></span>
+    <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme" title="Switch theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <section class="block" id="data">
+    <div class="sec-head">
+      <p class="eyebrow">Data &amp; reproducibility</p>
+      <h2>Real datasets from flight and the lab</h2>
+      <p class="lede">Every figure on this page is computed by the project's training script from the datasets below. The script uses a fixed random seed (42), so rerunning it produces the same numbers.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel dataset">
+        <h3>OPSSAT-AD</h3>
+        <dl>
+          <dt>Source</dt><dd>ESA OPS-SAT, a 3U CubeSat flown from December 2019 to May 2024</dd>
+          <dt>Contents</dt><dd id="opsContents"></dd>
+          <dt>Recorded</dt><dd id="opsSpan" class="mono"></dd>
+          <dt>Split</dt><dd id="opsSplit"></dd>
+          <dt>License</dt><dd>CC BY 4.0</dd>
+          <dt>Link</dt><dd><a href="https://zenodo.org/records/15108715" target="_blank" rel="noopener">zenodo.org/records/15108715</a></dd>
+        </dl>
+        <p class="cite">Ruszczak, B., Kotowski, K., Evans, D., Nalepa, J. The OPS-SAT benchmark for detecting anomalies in satellite telemetry. arXiv:2407.04730 (2024). <a href="https://doi.org/10.48550/arXiv.2407.04730" target="_blank" rel="noopener">doi:10.48550/arXiv.2407.04730</a></p>
+      </div>
+      <div class="panel dataset">
+        <h3>NASA Li-ion Battery Aging</h3>
+        <dl>
+          <dt>Source</dt><dd>NASA Ames Prognostics Center of Excellence battery testbed</dd>
+          <dt>Contents</dt><dd id="battContents"></dd>
+          <dt>Conditions</dt><dd>4 °C, 22–24 °C and 43–44 °C ambient; 1, 2 and 4 A discharge; 1.5 A CC/CV charge to 4.2 V</dd>
+          <dt>Cleaning</dt><dd>Zero and outlier runs removed (NASA notes unexplained low-capacity runs); smoothed with a 5-run rolling median</dd>
+          <dt>End of life</dt><dd>Capacity below 80% of the cell's initial capacity (industry-standard SOH-80)</dd>
+          <dt>License</dt><dd>U.S. government public data</dd>
+          <dt>Link</dt><dd><a href="https://data.nasa.gov/dataset/li-ion-battery-aging-datasets" target="_blank" rel="noopener">data.nasa.gov · Li-ion Battery Aging Datasets</a></dd>
+        </dl>
+        <p class="cite">Saha, B., Goebel, K. Battery Data Set. NASA Prognostics Data Repository, NASA Ames Research Center, Moffett Field, CA (2007).</p>
+      </div>
+      <div class="panel dataset">
+        <h3>ESA Anomaly Detection Benchmark · Mission 1</h3>
+        <dl>
+          <dt>Source</dt><dd>Real telemetry from an ESA mission, with expert-labelled anomalies, rare events and communication gaps</dd>
+          <dt>Used here</dt><dd id="esaContents">6 channels, fetched individually from the archive with HTTP range requests</dd>
+          <dt>Split</dt><dd>Per channel: first half of the mission = training period, second half = test period</dd>
+          <dt>Link</dt><dd><a href="https://zenodo.org/records/15237121" target="_blank" rel="noopener">zenodo.org/records/15237121</a></dd>
+        </dl>
+        <p class="cite">Kotowski, K., Haskamp, C., Andrzejewski, J., Ruszczak, B., Nalepa, J., Lakey, D., Collins, P., Kolmas, A., Bartesaghi, M., Martinez-Heras, J., De Canio, G. European Space Agency Benchmark for Anomaly Detection in Satellite Telemetry. arXiv:2406.17826 (2024).</p>
+      </div>
+      <div class="panel dataset">
+        <h3>Reproduce every number</h3>
+        <dl>
+          <dt>Run</dt><dd class="mono">python scripts/train_models.py</dd>
+          <dt>Then</dt><dd class="mono">python scripts/build_site.py</dd>
+          <dt>Check</dt><dd class="mono">node scripts/check_js.cjs</dd>
+          <dt>Seeds</dt><dd>Fixed (42 for models; 11 and 12 for the final injection tests)</dd>
+        </dl>
+        <p class="cite">The browser runs the same model as the Python pipeline. The parity test gives identical alarms and anomaly types on 150 of 150 real segments.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Telemetry: ESA OPS-SAT via the OPSSAT-AD dataset (CC BY 4.0). Battery data: NASA Ames Prognostics Center of Excellence.</p>
+    <p>Models built with scikit-learn. Charts drawn with Chart.js.</p>
+    <p>A project by Sahil Mandal (team leader), Kaustubh Patil and Rohin Rana, guided by Prof. Sonal Chanderi · MIT ADT University, Pune.</p>
+  </div>
+</footer>
+
+<script src="assets/data.js?v=fa9b53fd"></script>
+<script src="assets/fdcore.js?v=3588766c"></script>
+
+<script src="assets/app.js?v=0113907a"></script>
+</body>
+</html>

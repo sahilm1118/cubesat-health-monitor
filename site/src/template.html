@@ -545,29 +545,39 @@ textarea { font: .8rem var(--f-mono); color: var(--ink); background: var(--surfa
 .chips-static i { font-style: normal; font-size: .78rem; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); }
 .about-cols { gap: 24px; }
 
+/* multi-page */
+section.block { grid-template-columns: minmax(0, 1fr); }
+main > section.block:first-child { padding-top: 40px; }
+.page-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.page-card { display: grid; gap: 6px; align-content: start; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
+.page-card:hover { border-color: var(--accent); }
+.page-card b { font-family: var(--f-display); font-weight: 650; font-size: 1.05rem; color: var(--accent); }
+.page-card span { font-size: .88rem; color: var(--muted); }
+
 footer { margin-top: 80px; border-top: 1px solid var(--line); padding-block: 28px 40px; }
 footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted); }
 </style>
 
 <nav class="nav" aria-label="Sections">
   <div class="wrap">
-    <a class="brand" href="#top">
+    <a class="brand" href="index.html">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M2 9.5h4M2 14.5h4M18 9.5h4M18 14.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></svg>
       <span class="brand-txt">CubeSat Health Monitor</span>
     </a>
     <div class="nav-scroll">
       <button class="nav-arrow" id="navLeft" type="button" aria-label="Show earlier sections" hidden>‹</button>
       <div class="nav-links" id="navLinks">
-        <a href="#monitor">Monitor</a>
-        <a href="#dashboards">Dashboards</a>
-        <a href="#playground">Try the AI</a>
-        <a href="#autonomy">Autonomy</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#detection">Detection</a>
-        <a href="#validation">Validation</a>
-        <a href="#battery">Battery</a>
-        <a href="#data">Data</a>
-        <a href="#about">About</a>
+        <a href="index.html">Home</a>
+        <a href="monitor.html">Monitor</a>
+        <a href="dashboards.html">Dashboards</a>
+        <a href="playground.html">Try the AI</a>
+        <a href="autonomy.html">Autonomy</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="detection.html">Detection</a>
+        <a href="validation.html">Validation</a>
+        <a href="battery.html">Battery</a>
+        <a href="data.html">Data</a>
+        <a href="about.html">About</a>
       </div>
       <button class="nav-arrow" id="navRight" type="button" aria-label="Show more sections" hidden>›</button>
     </div>
@@ -593,7 +603,11 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     <div class="kpis" id="kpis"></div>
   </header>
 
-  <section id="monitor" aria-label="Live telemetry monitor">
+  <section class="block" id="monitor" aria-label="Live telemetry monitor">
+    <div class="sec-head">
+      <p class="eyebrow">Live monitor</p>
+      <h2>Watch the AI read real satellite telemetry</h2>
+    </div>
     <div class="console" id="console">
       <div class="console-head">
         <span class="live-dot" aria-hidden="true"></span>
@@ -661,6 +675,25 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
         </div>
       </div>
       <div class="console-foot" id="consoleFoot"></div>
+    </div>
+  </section>
+
+  <section class="block" id="explore">
+    <div class="sec-head">
+      <p class="eyebrow">Explore the project</p>
+      <h2>Choose where to start</h2>
+    </div>
+    <div class="page-cards">
+      <a class="page-card" href="monitor.html"><b>Live monitor</b><span>Real OPS-SAT telemetry replayed, with the AI's diagnosis and recommended action for every fault.</span></a>
+      <a class="page-card" href="dashboards.html"><b>Dashboards</b><span>Mission timeline, anomaly explorer, threshold lab and battery digital twin.</span></a>
+      <a class="page-card" href="playground.html"><b>Try the AI</b><span>Inject faults into real telemetry, or score your own CSV, and watch the model react.</span></a>
+      <a class="page-card" href="autonomy.html"><b>Autonomy</b><span>The fault-management simulator: AI, limit checks and the hybrid compared.</span></a>
+      <a class="page-card" href="architecture.html"><b>Architecture</b><span>How the system works, with an exploded 3D CubeSat.</span></a>
+      <a class="page-card" href="detection.html"><b>Detection</b><span>Model comparison, confusion matrix and per-sensor results.</span></a>
+      <a class="page-card" href="validation.html"><b>Validation</b><span>Calibration, injected-fault tests, the ESA cross-mission test and our limitations.</span></a>
+      <a class="page-card" href="battery.html"><b>Battery</b><span>Battery health and remaining-life forecasts with uncertainty ranges.</span></a>
+      <a class="page-card" href="data.html"><b>Data</b><span>The datasets, citations and how to reproduce every number.</span></a>
+      <a class="page-card" href="about.html"><b>About</b><span>The team and project guide.</span></a>
     </div>
   </section>
 
@@ -1272,21 +1305,25 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   </div>
 </footer>
 
-<script type="application/json" id="fdData">__FD__</script>
-<script type="application/json" id="bhData">__BH__</script>
-<script type="application/json" id="rpData">__RP__</script>
-<script type="application/json" id="modelData">__MODEL__</script>
-<script type="application/json" id="simData">__SIM__</script>
-<script type="application/json" id="esaData">__ESA__</script>
-<script>__FDCORE__</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js" integrity="sha384-dug+JxfBvklEQdJ4AYuBBAIScUz0bVN73xpy273gcAwHjb3qI0fXmuYNaNfdyYJG" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 (() => {
-  const FD = JSON.parse(document.getElementById("fdData").textContent);
-  const BH = JSON.parse(document.getElementById("bhData").textContent);
-  const RP = JSON.parse(document.getElementById("rpData").textContent);
-  const $ = (s) => document.querySelector(s);
+  // old single-page links such as index.html#dashboards keep working
+  const OLD_LINKS = { monitor: "monitor", dashboards: "dashboards", playground: "playground", upload: "playground", autonomy: "autonomy", architecture: "architecture",
+    detection: "detection", validation: "validation", limitations: "validation", battery: "battery", data: "data", about: "about", team: "about" };
+  const pageFile = document.body.dataset.file;
+  const oldTarget = OLD_LINKS[location.hash.slice(1)];
+  if (pageFile === "index.html" && oldTarget) { location.replace(`${oldTarget}.html${location.hash}`); return; }
+
+  const { fd: FD, bh: BH, rp: RP, model: MODEL, sim: SIM, esa: ESA } = window.CHM_DATA;
+  // Each page holds only its own sections but shares this script. A missing element resolves to an inert
+  // stand-in that absorbs reads, writes and calls, so code for other pages does nothing instead of failing.
+  // Anything that needs a real element (observers, charts, animation loops) is gated with has().
+  const NOTHING = new Proxy(function () {}, {
+    get: (_, k) => k === "then" ? undefined : k === Symbol.toPrimitive ? () => "" : k === Symbol.iterator ? [][Symbol.iterator].bind([]) : NOTHING,
+    set: () => true, apply: () => NOTHING,
+  });
+  const $ = (s) => document.querySelector(s) || NOTHING;
+  const has = (s) => !!document.querySelector(s);
   const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
   const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const fmt = (x, d = 3) => Number(x).toFixed(d);
@@ -1315,9 +1352,6 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   /* ---------------- headline numbers ---------------- */
   const best = FD.results.find((r) => r.model === FD.best_model);
   const ov = FD.overview;
-  const MODEL = JSON.parse(document.getElementById("modelData").textContent);
-  const SIM = JSON.parse(document.getElementById("simData").textContent);
-  const ESA = JSON.parse(document.getElementById("esaData").textContent);
   const core = window.FDCore ? FDCore.create(MODEL) : null;
   const THR = FD.threshold;
 
@@ -1438,7 +1472,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   }
   const pts = (xs, ys) => xs.map((x, i) => ({ x, y: ys[i] }));
   const line = (label, data, color, more = {}) => Object.assign({ label, data, borderColor: color, backgroundColor: color, borderWidth: 2, pointRadius: 0, tension: 0.15 }, more);
-  function mk(id, cfg) { if (charts[id]) charts[id].destroy(); charts[id] = new Chart(document.getElementById(id), cfg); }
+  function mk(id, cfg) { const cv = document.getElementById(id); if (!cv) return; if (charts[id]) charts[id].destroy(); charts[id] = new Chart(cv, cfg); }
 
   function drawDetectionCharts() {
     const acc = css("--accent"), muted = css("--muted");
@@ -1563,7 +1597,10 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     if (!window.Chart) return;
     Chart.defaults.font.family = css("--f-body");
     Chart.defaults.color = css("--muted");
-    drawDetectionCharts(); drawFade(); drawCell(); drawValidation(); drawMC(); drawEsaSparks();
+    if (has("#prChart")) drawDetectionCharts();
+    if (has("#fadeChart")) { drawFade(); drawCell(); }
+    if (has("#calChart")) { drawValidation(); drawEsaSparks(); }
+    if (has("#mcChart")) drawMC();
   }
 
   /* ---------------- live telemetry replay ---------------- */
@@ -1770,7 +1807,8 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     cvs.width = Math.round(r.width * dpr); cvs.height = Math.round(r.height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  new ResizeObserver(() => { fit(); draw(); }).observe(cvs);
+  const hasMonitor = has("#scope");
+  if (hasMonitor) new ResizeObserver(() => { fit(); draw(); }).observe(cvs);
 
   function fmtVal(v, span) {
     if (span < 1e-3) return (v * 1e6).toFixed(1) + "µ";
@@ -1778,6 +1816,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   }
 
   function draw() {
+    if (!hasMonitor) return;
     const W = cvs.clientWidth, H = cvs.clientHeight; if (!W || !H) return;
     ctx.clearRect(0, 0, W, H);
     const ss = segs(), SLOTS = W < 520 ? 3 : 4;
@@ -1860,6 +1899,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------------- rotating 3U CubeSat (three.js) ---------------- */
   function initSat() {
+    if (!has("#satCanvas")) return null;
     const box = $("#satBox"), canvas = $("#satCanvas");
     if (!window.THREE) { box.hidden = true; return null; }
     const T = THREE;
@@ -2019,6 +2059,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- 1. orbit globe with ground-station contact ---------- */
   function initOrbit() {
+    if (!has("#orbitCanvas")) return null;
     const canvas = $("#orbitCanvas"); if (!window.THREE) { $("#orbitBox").hidden = true; return null; }
     const T = THREE, renderer = makeRenderer(canvas); if (!renderer) { $("#orbitBox").hidden = true; return null; }
     const RE = 6371, ALT = 515, A = RE + ALT, MU = 398600.4418, INC = 97.4 * Math.PI / 180, WE = 7.2921159e-5;
@@ -2166,6 +2207,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- 2. exploded CubeSat ---------- */
   function initExplode() {
+    if (!has("#explodeCanvas")) return null;
     const canvas = $("#explodeCanvas"); if (!window.THREE) { $("#explodeBox").hidden = true; return null; }
     const T = THREE, renderer = makeRenderer(canvas); if (!renderer) { $("#explodeBox").hidden = true; return null; }
     const scene = new T.Scene(), camera = new T.PerspectiveCamera(30, 1, 0.1, 100);
@@ -2297,6 +2339,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- 3. forest vote animation (real per-tree votes from the deployed model) ---------- */
   function initForest() {
+    if (!has("#nnCanvas")) return;
     const cv = $("#nnCanvas"), ctx = cv.getContext("2d");
     if (!core) return;
     const KINDS = [null, "spike", null, "noise", null, "stuck", null, "data_gap"];
@@ -2366,6 +2409,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- playground ---------- */
   function initPlayground() {
+    if (!has("#pgCanvas")) return;
     if (!core) { $("#playground").hidden = true; return; }
     const sel = $("#pgSeg"), typeBox = $("#pgType");
     SIM.playground.forEach((s, i) => { const o = el("option", null, `${s.name} · #${s.id} · ${s.v.length} samples`); o.value = i; sel.append(o); });
@@ -2453,6 +2497,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- upload: score your own telemetry ---------- */
   function initUpload() {
+    if (!has("#upText")) return;
     if (!core) { $("#upload").hidden = true; return; }
     const names = {}; SIM.playground.forEach((s) => { names[s.channel] = s.name; });
     Object.keys(MODEL.med).sort().forEach((c) => { const o = el("option", null, `${names[c] || c} (${c})`); o.value = c; $("#upChan").append(o); });
@@ -2515,6 +2560,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   /* ---------- autonomy (FDIR) simulator ---------- */
   function initAutonomy() {
+    if (!has("#simCanvas")) return null;
     if (!core) { $("#autonomy").hidden = true; return null; }
     const STR = SIM.stretches, LEVEL = ["Nominal", "Monitor", "Isolate", "Safe mode"], WHO = [["ai", "AI only"], ["lim", "Limits only"], ["hy", "Hybrid"]];
     STR.forEach((s, i) => { const o = el("option", null, `${s.name} · ${s.windows.length} windows`); o.value = i; $("#simStretch").append(o); });
@@ -2622,9 +2668,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   const allTest = Object.values(testIndex).map((t) => t.s);
 
   function openInMonitor(segId) {
-    const t = testIndex[segId]; if (!t) return;
-    selectChannel(t.ch); jumpTo(t.i); setPlaying(true);
-    $("#monitor").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    if (testIndex[segId]) location.href = `monitor.html?seg=${segId}`;
   }
 
   function lineMarker() {   // vertical marker drawn at options.plugins.marker.x (data units on the x scale)
@@ -2751,7 +2795,7 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
     $("#tlFilter").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
     tlStats(); drawHeat(); renderTlDetail(); drawWeeks();
   });
-  new ResizeObserver(() => { if (drawn.timeline && curTab === "timeline") drawHeat(); }).observe($("#heatScroll"));
+  if (has("#heatScroll")) new ResizeObserver(() => { if (drawn.timeline && curTab === "timeline") drawHeat(); }).observe($("#heatScroll"));
 
   function drawWeeks() {
     const rows = tlRows().map((r) => r.i), wk = {};
@@ -3005,14 +3049,12 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
   updStrip();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(updStrip);
   // keep the current section's link in view
-  const revealLink = (a) => {
-    const target = a.offsetLeft - (strip.clientWidth - a.offsetWidth) / 2;
-    if (a.offsetLeft < strip.scrollLeft || a.offsetLeft + a.offsetWidth > strip.scrollLeft + strip.clientWidth) strip.scrollTo({ left: target, behavior: reduceMotion ? "auto" : "smooth" });
-  };
-  const secObs = new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) navLinks.forEach((a) => { const on = a.getAttribute("href") === "#" + e.target.id; a.classList.toggle("active", on); if (on) revealLink(a); });
-  }), { rootMargin: "-45% 0px -50% 0px" });
-  navLinks.forEach((a) => { const s = document.querySelector(a.getAttribute("href")); if (s) secObs.observe(s); });
+  // mark this page's link and bring it into view
+  const activeLink = navLinks.find((a) => a.getAttribute("href") === pageFile);
+  const showActive = () => { if (activeLink) { strip.scrollLeft = activeLink.offsetLeft - strip.offsetLeft - (strip.clientWidth - activeLink.offsetWidth) / 2; updStrip(); } };
+  if (activeLink) { activeLink.classList.add("active"); activeLink.setAttribute("aria-current", "page"); }
+  showActive();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(showActive);
   const bar = $("#progressBar");
   const onScroll = () => { const h = document.documentElement.scrollHeight - innerHeight; bar.style.width = (h > 0 ? scrollY / h * 100 : 0) + "%"; };
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
@@ -3027,15 +3069,19 @@ footer .wrap { display: grid; gap: 10px; font-size: .84rem; color: var(--muted);
 
   function repaint() {
     draw(); drawAllCharts(); if (satView) satView.recolor(); if (orbitView) orbitView.recolor(); if (playground) playground.render();
-    TABS.forEach((t) => { drawn[t] = false; }); if (window.Chart) { DRAW[curTab](); drawn[curTab] = true; }
+    if (has("#tab-timeline") && window.Chart) { TABS.forEach((t) => { drawn[t] = false; }); DRAW[curTab](); drawn[curTab] = true; }
   }
-  if (window.Chart) showTab("timeline");
+  if (has("#tab-timeline") && window.Chart) showTab("timeline");
 
-  selectChannel(state.ch);
-  if (reduceMotion) { state.progress = 1; state.decided = true; renderPanels(); }
-  setPlaying(state.playing);
-  fit(); draw();
-  requestAnimationFrame(tick);
+  if (hasMonitor) {
+    selectChannel(state.ch);
+    const linked = testIndex[new URLSearchParams(location.search).get("seg")];   // "Replay" links from the dashboards
+    if (linked) { selectChannel(linked.ch); jumpTo(linked.i); }
+    if (reduceMotion) { state.progress = 1; state.decided = true; renderPanels(); }
+    setPlaying(state.playing);
+    fit(); draw();
+    requestAnimationFrame(tick);
+  }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { draw(); drawAllCharts(); }); else drawAllCharts();
   if (!window.Chart) window.addEventListener("load", drawAllCharts);
 })();
