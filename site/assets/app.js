@@ -1360,7 +1360,9 @@
   const allTest = Object.values(testIndex).map((t) => t.s);
 
   function openInMonitor(segId) {
-    if (testIndex[segId]) location.href = `monitor.html?seg=${segId}`;
+    if (!testIndex[segId]) return;
+    const url = `monitor.html?seg=${segId}`;
+    if (window.warpTo) window.warpTo(url, "Monitor"); else location.href = url;
   }
 
   function lineMarker() {   // vertical marker drawn at options.plugins.marker.x (data units on the x scale)

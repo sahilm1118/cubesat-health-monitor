@@ -73,6 +73,7 @@ css_url = write_asset("site.css", between("<style>", "</style>").strip() + "\n")
 data_url = write_asset("data.js", "window.CHM_DATA=" + json.dumps(data, separators=(",", ":")) + ";\n")
 core_url = write_asset("fdcore.js", (SITE / "src" / "fdcore.js").read_text(encoding="utf-8"))
 app_url = write_asset("app.js", between("<script>", "</script>").strip() + "\n")
+transition_url = write_asset("transition.js", (SITE / "src" / "transition.js").read_text(encoding="utf-8"))
 
 nav = between('<nav class="nav"', "</nav>", include=True)
 footer = between("<footer>", "</footer>", include=True)
@@ -118,6 +119,7 @@ for file, label, secs, libs in PAGES:
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 {fonts}
 <link rel="stylesheet" href="{css_url}">
+<script src="{transition_url}"></script>
 </head>
 <body data-file="{file}">
 {nav}

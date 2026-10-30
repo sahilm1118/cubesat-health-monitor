@@ -539,6 +539,9 @@ textarea { font: .8rem var(--f-mono); color: var(--ink); background: var(--surfa
 .chips-static i { font-style: normal; font-size: .78rem; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); }
 .about-cols { gap: 24px; }
 
+/* page-change animation: hyperspace jump overlay (see transition.js) */
+.warp { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; }
+
 /* multi-page */
 section.block { grid-template-columns: minmax(0, 1fr); }
 main > section.block:first-child { padding-top: 40px; }
