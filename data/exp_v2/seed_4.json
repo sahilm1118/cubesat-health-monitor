@@ -1,0 +1,421 @@
+{
+ "seed": 4,
+ "threshold": 0.45,
+ "detect": {
+  "precision": 0.9805825242718447,
+  "recall": 0.8938053097345132,
+  "f1": 0.9351851851851852,
+  "mcc": 0.9201594108423053,
+  "aucpr": 0.9708849393733054,
+  "aucroc": 0.9905973451327433
+ },
+ "detect_aug": {
+  "precision": 0.9090909090909091,
+  "recall": 0.8849557522123894,
+  "f1": 0.8968609865470852,
+  "mcc": 0.8694487016338011,
+  "aucpr": 0.9620328597795658,
+  "aucroc": 0.9865554799183117
+ },
+ "threshold_aug": 0.34,
+ "fusion": {
+  "coef": [
+   0.5442179299603186,
+   1.245842325893348,
+   -0.22868092935214906
+  ],
+  "intercept": 1.2665835091674305,
+  "threshold": 0.8344172657307922,
+  "train_fa_budget": 0.014139827179890024
+ },
+ "detect_limit": {
+  "precision": 0.5625,
+  "recall": 0.1592920353982301,
+  "f1": 0.2482758620689655,
+  "mcc": 0.2160003088082626,
+  "aucpr": 0.2691858908944912,
+  "aucroc": 0.562819094622192
+ },
+ "detect_or": {
+  "precision": 0.8632478632478633,
+  "recall": 0.8938053097345132,
+  "f1": 0.8782608695652174,
+  "mcc": 0.8446660627235367,
+  "aucpr": 0.7942598338068168,
+  "aucroc": 0.9276718856364874
+ },
+ "detect_fusion": {
+  "precision": 0.9611650485436893,
+  "recall": 0.8761061946902655,
+  "f1": 0.9166666666666666,
+  "mcc": 0.8968636784500785,
+  "aucpr": 0.9670348253045917,
+  "aucroc": 0.989310330156569
+ },
+ "single_window": {
+  "none": {
+   "ai": 0.0,
+   "aug": 0.008333333333333333,
+   "lim": 0.058333333333333334,
+   "or": 0.058333333333333334,
+   "fus": 0.008333333333333333
+  },
+  "spike": {
+   "ai": 0.9916666666666667,
+   "aug": 0.9916666666666667,
+   "lim": 0.9666666666666667,
+   "or": 0.9916666666666667,
+   "fus": 0.9916666666666667
+  },
+  "noise": {
+   "ai": 0.7416666666666667,
+   "aug": 0.9833333333333333,
+   "lim": 0.5583333333333333,
+   "or": 0.875,
+   "fus": 0.8
+  },
+  "stuck": {
+   "ai": 0.36666666666666664,
+   "aug": 1.0,
+   "lim": 0.025,
+   "or": 0.38333333333333336,
+   "fus": 0.225
+  },
+  "offset": {
+   "ai": 0.0,
+   "aug": 0.3416666666666667,
+   "lim": 0.9916666666666667,
+   "or": 0.9916666666666667,
+   "fus": 0.8916666666666667
+  },
+  "data_gap": {
+   "ai": 0.8916666666666667,
+   "aug": 0.9916666666666667,
+   "lim": 0.041666666666666664,
+   "or": 0.8916666666666667,
+   "fus": 0.65
+  },
+  "amplitude": {
+   "ai": 0.025,
+   "aug": 0.9833333333333333,
+   "lim": 0.9916666666666667,
+   "or": 0.9916666666666667,
+   "fus": 0.9833333333333333
+  }
+ },
+ "fdir": {
+  "spike": {
+   "ai": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 0.975,
+    "safe_mode": 0.7,
+    "false_alarm_per_100": 0.38910505836575876,
+    "false_isolation_per_100": 0.38910505836575876,
+    "recovery_windows": 9.05
+   },
+   "aug": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 2.3346303501945527,
+    "false_isolation_per_100": 0.38910505836575876,
+    "recovery_windows": 9.375
+   },
+   "lim": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.05,
+    "isolated": 0.975,
+    "safe_mode": 0.625,
+    "false_alarm_per_100": 4.280155642023346,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 8.125
+   },
+   "hy": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 0.975,
+    "safe_mode": 0.8,
+    "false_alarm_per_100": 4.669260700389105,
+    "false_isolation_per_100": 0.7782101167315175,
+    "recovery_windows": 9.25
+   },
+   "fus": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 0.975,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 0.38910505836575876,
+    "false_isolation_per_100": 0.38910505836575876,
+    "recovery_windows": 9.25
+   }
+  },
+  "noise": {
+   "ai": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.225,
+    "isolated": 0.85,
+    "safe_mode": 0.4,
+    "false_alarm_per_100": 1.5037593984962405,
+    "false_isolation_per_100": 0.37593984962406013,
+    "recovery_windows": 7.875
+   },
+   "aug": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 4.887218045112782,
+    "false_isolation_per_100": 0.7518796992481203,
+    "recovery_windows": 9.35
+   },
+   "lim": {
+    "episodes": 40,
+    "detected": 0.95,
+    "mean_delay": 0.3157894736842105,
+    "isolated": 0.75,
+    "safe_mode": 0.475,
+    "false_alarm_per_100": 3.007518796992481,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 6.35
+   },
+   "hy": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.825,
+    "false_alarm_per_100": 4.511278195488722,
+    "false_isolation_per_100": 0.37593984962406013,
+    "recovery_windows": 9.425
+   },
+   "fus": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.025,
+    "isolated": 1.0,
+    "safe_mode": 0.675,
+    "false_alarm_per_100": 1.5037593984962405,
+    "false_isolation_per_100": 0.37593984962406013,
+    "recovery_windows": 9.05
+   }
+  },
+  "stuck": {
+   "ai": {
+    "episodes": 40,
+    "detected": 0.65,
+    "mean_delay": 0.8461538461538461,
+    "isolated": 0.45,
+    "safe_mode": 0.15,
+    "false_alarm_per_100": 0.7117437722419929,
+    "false_isolation_per_100": 0.35587188612099646,
+    "recovery_windows": 4.975
+   },
+   "aug": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 2.1352313167259784,
+    "false_isolation_per_100": 0.35587188612099646,
+    "recovery_windows": 9.275
+   },
+   "lim": {
+    "episodes": 40,
+    "detected": 0.075,
+    "mean_delay": 2.6666666666666665,
+    "isolated": 0.025,
+    "safe_mode": 0.0,
+    "false_alarm_per_100": 3.9145907473309607,
+    "false_isolation_per_100": 0.35587188612099646,
+    "recovery_windows": 1.5
+   },
+   "hy": {
+    "episodes": 40,
+    "detected": 0.675,
+    "mean_delay": 0.8888888888888888,
+    "isolated": 0.5,
+    "safe_mode": 0.15,
+    "false_alarm_per_100": 4.6263345195729535,
+    "false_isolation_per_100": 0.7117437722419929,
+    "recovery_windows": 5.3
+   },
+   "fus": {
+    "episodes": 40,
+    "detected": 0.375,
+    "mean_delay": 1.2,
+    "isolated": 0.3,
+    "safe_mode": 0.125,
+    "false_alarm_per_100": 1.4234875444839858,
+    "false_isolation_per_100": 0.35587188612099646,
+    "recovery_windows": 3.75
+   }
+  },
+  "offset": {
+   "ai": {
+    "episodes": 40,
+    "detected": 0.575,
+    "mean_delay": 1.5217391304347827,
+    "isolated": 0.25,
+    "safe_mode": 0.1,
+    "false_alarm_per_100": 0.0,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 5.225
+   },
+   "aug": {
+    "episodes": 40,
+    "detected": 0.975,
+    "mean_delay": 0.8717948717948718,
+    "isolated": 0.575,
+    "safe_mode": 0.2,
+    "false_alarm_per_100": 0.7782101167315175,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 6.675
+   },
+   "lim": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 0.975,
+    "safe_mode": 0.75,
+    "false_alarm_per_100": 4.280155642023346,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 8.35
+   },
+   "hy": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.9,
+    "false_alarm_per_100": 4.280155642023346,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 9.5
+   },
+   "fus": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.05,
+    "isolated": 0.95,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 0.38910505836575876,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 8.875
+   }
+  },
+  "data_gap": {
+   "ai": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.45,
+    "isolated": 0.875,
+    "safe_mode": 0.35,
+    "false_alarm_per_100": 0.0,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 8.175
+   },
+   "aug": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 2.0833333333333335,
+    "false_isolation_per_100": 0.3472222222222222,
+    "recovery_windows": 9.35
+   },
+   "lim": {
+    "episodes": 40,
+    "detected": 0.05,
+    "mean_delay": 1.0,
+    "isolated": 0.025,
+    "safe_mode": 0.0,
+    "false_alarm_per_100": 4.513888888888889,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 1.25
+   },
+   "hy": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.45,
+    "isolated": 0.875,
+    "safe_mode": 0.375,
+    "false_alarm_per_100": 4.513888888888889,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 8.275
+   },
+   "fus": {
+    "episodes": 40,
+    "detected": 0.95,
+    "mean_delay": 1.0526315789473684,
+    "isolated": 0.65,
+    "safe_mode": 0.15,
+    "false_alarm_per_100": 1.3888888888888888,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 6.75
+   }
+  },
+  "amplitude": {
+   "ai": {
+    "episodes": 40,
+    "detected": 0.5,
+    "mean_delay": 1.3,
+    "isolated": 0.225,
+    "safe_mode": 0.05,
+    "false_alarm_per_100": 0.7407407407407407,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 2.65
+   },
+   "aug": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.7,
+    "false_alarm_per_100": 2.962962962962963,
+    "false_isolation_per_100": 0.37037037037037035,
+    "recovery_windows": 9.375
+   },
+   "lim": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 2.962962962962963,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 8.35
+   },
+   "hy": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.825,
+    "false_alarm_per_100": 3.7037037037037037,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 9.475
+   },
+   "fus": {
+    "episodes": 40,
+    "detected": 1.0,
+    "mean_delay": 0.0,
+    "isolated": 1.0,
+    "safe_mode": 0.775,
+    "false_alarm_per_100": 1.1111111111111112,
+    "false_isolation_per_100": 0.0,
+    "recovery_windows": 9.475
+   }
+  }
+ },
+ "seconds": 77.2
+}

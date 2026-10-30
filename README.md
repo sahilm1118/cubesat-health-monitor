@@ -49,6 +49,24 @@ python scripts/build_site.py
 node scripts/check_js.cjs
 ```
 
+## Paper experiments (multi-seed, augmentation, learned fusion)
+
+```
+cd scripts
+python experiments_v2.py 1 2 3 4 42     # one JSON per seed -> data/exp_v2/
+python aggregate_v2.py                  # mean ± std -> data/exp_v2/summary.json
+python improve_models_seeds.py 42 1 2 3 4
+python fig_fdir_v2.py                   # FDIR figure for the paper
+cd .. && node scripts/bench_js.cjs      # latency and size of the browser detector
+```
+
+`experiments_v2.py` repeats detection, single-window injection and the FDIR simulation over seeds and adds two
+remedies for the detector's blind spots: an **augmented detector** trained with seven synthetic fault types that
+differ from the six test faults, and a **learned fusion** (logistic regression on the detector's log-odds and the
+size of the limit violation) whose threshold is set to the detector's own training false-alarm rate. Both see only
+training-split telemetry. OPSSAT-AD `dataset.csv` and `segments.csv` go in `data/raw/opssat/`
+(Zenodo record 15108715).
+
 ## Backend API
 
 `backend/` is a FastAPI server around the same model (`/api/score`, `/api/simulate`, `/api/battery/rul`).
