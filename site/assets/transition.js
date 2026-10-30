@@ -92,6 +92,19 @@
   }
   window.warpTo = warpTo;
 
+  // Architecture has its own arrival: fade to dark here, then its 3D CubeSat takes over (see initExplode in app.js)
+  function fadeToIntro(url) {
+    if (jumping) return;
+    jumping = true;
+    const veil = document.createElement("div");
+    veil.className = "warp"; veil.style.cssText = "background:#050814;opacity:0;transition:opacity .3s ease";
+    document.documentElement.append(veil);
+    void veil.offsetWidth;
+    veil.style.opacity = "1";
+    store.put({ intro: true });
+    setTimeout(() => { location.href = url; }, 320);
+  }
+
   const samePage = (a) => a.pathname.replace(/index\.html$/, "") === location.pathname.replace(/index\.html$/, "") && a.search === location.search;
   document.addEventListener("click", (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -100,6 +113,7 @@
     if (!/(\.html|\/)$/.test(a.pathname)) return;
     e.preventDefault();
     if (samePage(a)) { scrollTo({ top: 0, behavior: "smooth" }); return; }   // already here: no reload or jump
+    if (/architecture\.html$/.test(a.pathname)) { fadeToIntro(a.href); return; }
     const title = a.querySelector("b");
     warpTo(a.href, title ? title.textContent : (a.querySelector(".brand-txt") ? "Home" : a.textContent.trim()));
   });
@@ -112,6 +126,12 @@
   /* ---- arriving: same stars at full warp, hold until the page is parsed, then drop out ---- */
   const arriving = store.take();
   if (!arriving) return;
+  if (arriving.intro) {
+    const root = document.documentElement;
+    root.classList.add("arch-intro");
+    setTimeout(() => root.classList.remove("arch-intro", "arch-reveal"), 10000);   // safety net if the 3D view never starts
+    return;
+  }
   const fx = overlay(arriving.stars);
   let t0 = null;
   const start = () => { if (t0 === null) requestAnimationFrame(() => { if (t0 === null) t0 = performance.now(); }); };

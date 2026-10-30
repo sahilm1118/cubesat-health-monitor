@@ -400,6 +400,17 @@ input[type="range"] { flex: 1 1 220px; accent-color: var(--accent); min-width: 0
 .xl.ai b { box-shadow: 0 0 0 3px var(--accent-soft); }
 @media (max-width: 560px) { .xl span { display: none; } }
 .explode-btn { position: absolute; right: 12px; top: 12px; }
+.explode-stage { position: absolute; inset: 0; }
+.intro-skip { display: none; }
+/* arrival intro: the CubeSat fills the screen, comes apart, then shrinks into its place */
+html.arch-intro .explode-stage { position: fixed; inset: 0; z-index: 9000; background: #050814; cursor: pointer; overflow: hidden;
+  --ink: #e5eaf4; --surface: #111a2d; --line: #26324e; --muted: #94a0b8; --accent: #8ca3ff; }
+html.arch-intro .explode-fig canvas { cursor: pointer; }
+html.arch-intro .explode-btn { display: none; }
+html.arch-intro .intro-skip { display: block; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); font-family: var(--f-mono); font-size: .72rem; color: var(--muted); pointer-events: none; }
+html.arch-intro .nav, html.arch-intro footer, html.arch-intro #architecture > :not(.explode-wrap), html.arch-intro .module-list { opacity: 0; }
+html.arch-intro.arch-reveal .nav, html.arch-intro.arch-reveal footer, html.arch-intro.arch-reveal #architecture > :not(.explode-wrap), html.arch-intro.arch-reveal .module-list { opacity: 1; transition: opacity .6s ease; }
+html.arch-intro.arch-reveal .intro-skip { display: none; }
 .module-list { display: grid; gap: 6px; align-content: start; }
 .module { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 26px 1fr; gap: 2px 12px; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; }
 .module:hover, .module:focus-visible, .module.hot { background: var(--surface); border-color: var(--line); }

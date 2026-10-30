@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=504b267d">
-<script src="assets/transition.js?v=d54d5b78"></script>
+<link rel="stylesheet" href="assets/site.css?v=88019bd0">
+<script src="assets/transition.js?v=7a5de07b"></script>
 </head>
 <body data-file="architecture.html">
 <nav class="nav" aria-label="Sections">
@@ -60,9 +60,12 @@
     </div>
     <div class="explode-wrap">
       <div class="explode-fig" id="explodeBox">
+        <div class="explode-stage" id="explodeStage">
         <canvas id="explodeCanvas" role="img" aria-label="Exploded 3D view of a 3U CubeSat showing its internal boards"></canvas>
         <div class="explode-labels" id="explodeLabels" aria-hidden="true"></div>
         <button class="btn explode-btn" id="explodeBtn" type="button">Assemble</button>
+          <span class="intro-skip" aria-hidden="true">Click to skip</span>
+        </div>
       </div>
       <div class="module-list" id="moduleList">
         <div class="v-label">Inside a 3U CubeSat · hover a module</div>
@@ -89,6 +92,6 @@
 <script src="assets/data.js?v=fa9b53fd"></script>
 <script src="assets/fdcore.js?v=3588766c"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="assets/app.js?v=aca5d291"></script>
+<script src="assets/app.js?v=227c6b92"></script>
 </body>
 </html>

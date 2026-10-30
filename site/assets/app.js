@@ -745,8 +745,10 @@
     catch (e) { return null; }
   }
   function fitRenderer(renderer, camera, canvas, cb) {
-    const f = () => { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); cb && cb(w, h); };
+    let lastW = 0, lastH = 0;
+    const f = () => { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h || (w === lastW && h === lastH)) return; lastW = w; lastH = h; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); cb && cb(w, h); };
     new ResizeObserver(f).observe(canvas); f();
+    return f;
   }
 
   /* ---------- 1. orbit globe with ground-station contact ---------- */
@@ -900,12 +902,13 @@
   /* ---------- 2. exploded CubeSat ---------- */
   function initExplode() {
     if (!has("#explodeCanvas")) return null;
-    const canvas = $("#explodeCanvas"); if (!window.THREE) { $("#explodeBox").hidden = true; return null; }
-    const T = THREE, renderer = makeRenderer(canvas); if (!renderer) { $("#explodeBox").hidden = true; return null; }
+    const canvas = $("#explodeCanvas"); if (!window.THREE) { root.classList.remove("arch-intro"); $("#explodeBox").hidden = true; return null; }
+    const T = THREE, renderer = makeRenderer(canvas); if (!renderer) { root.classList.remove("arch-intro"); $("#explodeBox").hidden = true; return null; }
     const scene = new T.Scene(), camera = new T.PerspectiveCamera(30, 1, 0.1, 100);
     const pivot = new T.Group(); scene.add(pivot); pivot.add(camera); camera.position.set(0, 0, 10);
     const view = { ry: 0.6, rx: 0.32, idle: 9 };
-    fitRenderer(renderer, camera, canvas, (w, h) => { camera.position.z = w / h < 0.85 ? 17 : 13.5; });
+    const restingZ = (w, h) => (w / h < 0.85 ? 17 : 13.5);
+    const fitCanvas = fitRenderer(renderer, camera, canvas, (w, h) => { camera.position.z = restingZ(w, h); });
     dragRotate(canvas, view, { tilt: true });
     scene.add(new T.HemisphereLight(0xe6edff, 0x202838, 0.85));
     const key = new T.DirectionalLight(0xfff2dc, 1.2); key.position.set(4, 6, 5); scene.add(key);
@@ -1001,8 +1004,48 @@
     new IntersectionObserver((es) => { if (es[0].isIntersecting && !armed) { armed = true; target = 1; } }, { threshold: 0.35 }).observe(canvas);
 
     const v = new T.Vector3();
+    // Arrival intro (set up by transition.js when Architecture is clicked): assembled -> apart -> zoom out into place
+    const stage = $("#explodeStage"), figure = $("#explodeBox");
+    const INTRO = { hold: 500, apart: 1900, zoom: 1100, closeZ: 8 };
+    let intro = root.classList.contains("arch-intro"), introT0 = null;
+    const introSmooth = (k) => { const c = Math.max(0, Math.min(1, k)); return c * c * (3 - 2 * c); };
+    function endIntro() {
+      if (!intro) return;
+      intro = false;
+      armed = true; target = 1; ex = 1;
+      stage.removeAttribute("style");
+      root.classList.remove("arch-intro", "arch-reveal");
+      fitCanvas();
+      camera.position.z = restingZ(canvas.clientWidth, canvas.clientHeight);
+      camera.updateProjectionMatrix();
+    }
+    if (intro) {
+      stage.addEventListener("pointerdown", endIntro);
+      addEventListener("keydown", (e) => { if (e.key === "Escape") endIntro(); });
+      setTimeout(endIntro, 9000);   // rAF stops in hidden tabs; never leave the page covered
+      camera.position.z = INTRO.closeZ;
+    }
+    function introFrame(now) {
+      if (introT0 === null) introT0 = now;
+      const t = now - introT0;
+      ex = Math.max(0, Math.min(1, (t - INTRO.hold) / INTRO.apart));
+      const k = introSmooth((t - INTRO.hold - INTRO.apart) / INTRO.zoom);
+      if (k > 0) {
+        const r = figure.getBoundingClientRect(), vw = root.clientWidth, vh = innerHeight;
+        const mix = (a, b) => Math.round(a + (b - a) * k);
+        stage.style.inset = "auto";
+        stage.style.left = mix(0, r.left) + "px"; stage.style.top = mix(0, r.top) + "px";
+        stage.style.width = mix(vw, r.width) + "px"; stage.style.height = mix(vh, r.height) + "px";
+        stage.style.borderRadius = Math.round(14 * k) + "px";
+        stage.style.background = `rgba(5,8,20,${1 - k})`;
+        fitCanvas();
+        camera.position.z = INTRO.closeZ + (restingZ(r.width, r.height) - INTRO.closeZ) * k;
+        if (k > 0.3) root.classList.add("arch-reveal");
+      }
+      if (t >= INTRO.hold + INTRO.apart + INTRO.zoom) endIntro();
+    }
     function frame(dt, now) {
-      ex += (target - ex) * Math.min(1, dt * 2.4);
+      if (intro) introFrame(now); else ex += (target - ex) * Math.min(1, dt * 2.4);
       const e = ex * ex * (3 - 2 * ex);
       MODULES.forEach((m) => {
         const g = boards[m.key]; g.position.y = m.y * (1 + 1.25 * e);
