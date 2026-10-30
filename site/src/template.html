@@ -546,6 +546,7 @@ textarea { font: .8rem var(--f-mono); color: var(--ink); background: var(--surfa
 .about-cols { gap: 24px; }
 
 /* page-change animation: hyperspace jump overlay (see transition.js) */
+html { background: var(--bg); }   /* no white flash between pages */
 .warp { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; }
 
 /* multi-page */
